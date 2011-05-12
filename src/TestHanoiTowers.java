@@ -11,21 +11,27 @@ public class TestHanoiTowers {
 		environment.setInitialState();
 		
 		QLearningSelector rand = new QLearningSelector();
-		rand.setGamma(0.7);
-		rand.setAlpha(0.7);
+		
+		double epsilon = 0.4;
+
+		rand.setEpsilon(epsilon);
+		rand.setAlphaDecayPower(0.5);
 		
 		IAgent agent = new LoneAgent(environment, rand);
 		
 		OnePlayerReferee referee = new OnePlayerReferee(agent);
-		referee.setMaxIter(100);
+		referee.setMaxIter(1000);
 		double total_reward = 0;
 		
-		for (int i=0; i < 30; i++) {
+		for (int i=0; i < 10000; i++) {
 			
 			referee.episode(environment.getInitialState());
 			total_reward = referee.getRewardForEpisode();
 			
-			System.out.println(i+" "+total_reward);
+			System.out.println(i+" "+total_reward+" "+ epsilon);
+
+			epsilon *= 0.9999;
+			rand.setEpsilon(epsilon);
 		}
 	}
 }
