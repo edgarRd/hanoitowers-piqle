@@ -10,13 +10,20 @@ import java.util.LinkedList;
 public class HanoiTowersEnv extends AbstractEnvironmentSingle {
 	
 	protected static final long serialVersionUID = 1L;
-	protected int _def_num_disks = 4;
+	protected final int DEF_NUM_DISKS = 4;
+	protected int _num_disks = 0;
 	
 	protected HanoiTowersState oldState = null;
 	protected HanoiTowersState defaultCurrentState = null;
 	
+	public HanoiTowersEnv() {
+     	this._num_disks = DEF_NUM_DISKS;
+     	
+     	defaultCurrentState = this.setInitialState();
+	}
+	
 	public HanoiTowersEnv(int num_disks) {
-		this._def_num_disks = num_disks;
+		this._num_disks = (num_disks > 0) ? num_disks : DEF_NUM_DISKS;
 		
 		defaultCurrentState = this.setInitialState();
 	}
@@ -34,7 +41,7 @@ public class HanoiTowersEnv extends AbstractEnvironmentSingle {
 		return setInitialState();
 	}
 
-	protected int getTotalDisks() { return this._def_num_disks; }
+	protected int getTotalDisks() { return this._num_disks; }
 	
 	@Override
 	public IState defaultInitialState() { return defaultCurrentState; }
@@ -111,7 +118,7 @@ public class HanoiTowersEnv extends AbstractEnvironmentSingle {
 		res &= current.getPole2().isEmpty();
 		
 		if (res)
-			for (int i=this._def_num_disks; i > 0; i--) {
+			for (int i=this._num_disks; i > 0; i--) {
 				res &= ( ((Integer)current.getPole3().get(i-1)) == i ); 
 			}
 		
