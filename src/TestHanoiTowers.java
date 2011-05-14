@@ -27,7 +27,6 @@ public class TestHanoiTowers {
 			referee.episode(environment.getInitialState());
 			total_reward = referee.getRewardForEpisode();
 			
-			agent.explainValues();
 			int actions_performed = ((HanoiTowersAgent)agent).getActionsPerformed();
 			
 			System.out.println(i+" "+total_reward+" "+ epsilon+ " "+actions_performed);
