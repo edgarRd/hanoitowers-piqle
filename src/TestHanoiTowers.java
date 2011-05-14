@@ -22,11 +22,12 @@ public class TestHanoiTowers {
 		referee.setMaxIter(1000);
 		double total_reward = 0;
 		
-		for (int i=0; i < 5000; i++) {
+		for (int i=0; i < 50000; i++) {
 			
 			referee.episode(environment.getInitialState());
 			total_reward = referee.getRewardForEpisode();
 			
+			agent.explainValues();
 			int actions_performed = ((HanoiTowersAgent)agent).getActionsPerformed();
 			
 			System.out.println(i+" "+total_reward+" "+ epsilon+ " "+actions_performed);
